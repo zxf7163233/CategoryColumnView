@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  attr_accessible :name, :body
+  attr_accessible :name
   acts_as_tree 
   has_many :products
 
