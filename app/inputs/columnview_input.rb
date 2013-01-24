@@ -1,6 +1,6 @@
 class ColumnviewInput < SimpleForm::Inputs::Base
 
-  class Myhelpe
+  class MyHelper
     include ActionView::Helpers
     attr_accessor :output_buffer
     def build_menu(root)
@@ -30,9 +30,9 @@ class ColumnviewInput < SimpleForm::Inputs::Base
   end
 
   def input
-    @helps = Myhelpe.new
+    @helpes ||= MyHelper.new
     <<-HTML
-        #{@helps.build_menu(@builder.object.send(attribute_name))} 
+        #{@helpes.build_menu(@builder.object.send(attribute_name))} 
         #{@builder.hidden_field(attribute_name, input_html_options)}
         <script type="text/javascript">
             $("ul.dropdown-menu").first().columnview({field_name: '#{field_name}'});
