@@ -60,6 +60,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
+        # puts params[:category_val]
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { head :no_content }
       else

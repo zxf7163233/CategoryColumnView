@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
   attr_accessible :name
-  acts_as_tree 
+  acts_as_tree
   has_many :products
 
   def load_category(config_root)
