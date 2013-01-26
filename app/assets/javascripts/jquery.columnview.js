@@ -59,13 +59,11 @@
         }\
       </style>');
     }
-
     // Hide original list
     $(this).hide();
     // Reset the original list's id
     var origid = $(this).attr('id');
     $(this).attr('id', origid + "-processed");
-
     // Create new top container from top-level LI tags
     var top = $(this).children('li');
     var container = $('<div/>').addClass('containerobj').attr('id', origid).insertAfter(this);
@@ -78,7 +76,6 @@
         addWidget(topitem);
       }
     });
-
     // Event handling functions
     $(container).bind("click keydown", function(event){
       if ($(event.target).is("a")) {
@@ -118,19 +115,20 @@
             var title = $('<a/>').attr({href:$(self).attr('href')}).text($(self).attr('title') ? $(self).attr('title') : $(self).text());
             // 获取最后要提交到值
             // $(self).text();
-
-            var featurebox = $('<div/>').html(title).addClass('feature').appendTo(container);
-            // Set the width
-            var remainingspace = 0;
-            $.each($(container).children('div').slice(0,-1),function(i,item){
-              remainingspace += $(item).width();
-            });
-            var fillwidth = $(container).width() - remainingspace;
-            $(featurebox).css({'top':0,'left':remainingspace}).width(fillwidth).show();
+            // var featurebox = $('<div/>').html(title).addClass('feature').appendTo(container);
+            // // Set the width
+            // var remainingspace = 0;
+            // $.each($(container).children('div').slice(0,-1),function(i,item){
+            //   remainingspace += $(item).width();
+            // });
+            // var fillwidth = $(container).width() - remainingspace;
+            // $(featurebox).css({'top':0,'left':remainingspace}).width(fillwidth).show();
           }
           // 为隐藏域赋值
           $("#" + field_name).val($(self).text());
         }
+          // 最后选择的值
+            dblc();
         // Handle Keyboard navigation
         if(event.type == "keydown"){
           switch(event.keyCode){
@@ -158,10 +156,29 @@
     });
   };
   
+  // 双击获取最后的值
+  function dblc() {
+    $(".active").dblclick(function (){
+      var container = $(".containerobj");
+      divs = container.find(">div:not(.feature)");
+      results = [];
+      // divs.each(function(i, e){
+      divs.each(function(){
+        // $node = $(e).find(">a.active,>a.inpath");
+         $node = $(this).find(">a.active,>a.inpath");
+         if("" != $node.text()){
+          results.push($node.text());
+         }
+      });
+      results = results.join(" > ");
+      $(".containerobj").hide();
+      $("#choosesort").val(results);
+    });
+  }
+
   $.fn.columnview.defaults = {
     multi: false
   };
-
   // Generate deeper level menus
   function submenu(container,item){
     var leftPos = 0;
@@ -179,7 +196,6 @@
       }
     });
   }
-
   // Uses canvas, if available, to draw a triangle to denote that item is a parent
   function addWidget(item, color){
     var triheight = $(item).height();
@@ -207,5 +223,4 @@
       event.preventDefault();
     });
   }
-
 })(jQuery);

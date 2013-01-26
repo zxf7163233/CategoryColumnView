@@ -1,8 +1,16 @@
 <p id="notice"><%= notice %></p>
 <%= simple_form_for @product do |p| %>
     <%= p.input :category, :as => :columnview %>
+
     <%= p.button :submit, :value => "确定"%>
+    <input type="button" id="choosesort" value="选择分类">
 <% end %>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+
+<script type="text/javascript">
+    $("#choosesort").click(function(){
+        $(".containerobj").show();
+    });
+</script>
